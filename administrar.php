@@ -30,7 +30,7 @@
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Inicio</a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">
-                <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Usuarios'>Usuarios</a></li>
+                <li><a class="dropdown-item" href="#" onclick='mostrar_usuarios()'>Usuarios</a></li>
                 <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Candidatos'>Candidatos</a></li>
                 <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Alumnos'>Alumnos</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -67,6 +67,7 @@
     <script src="js/sweetalert2.js"></script>
     <script src="js/jquery.min.js"></script>
     <script type='text/javascript' src='js/rfuncioness.js'></script>
+    <script src="js/usuarios.js"></script>
     <script type="text/javascript">
         
         function alerta(){
@@ -316,6 +317,6 @@
         function salir(){
              $(location).attr('href','index.php');
         }
-    </script><!---->
+    </script>
 </body>
 </html>

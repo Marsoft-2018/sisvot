@@ -12,8 +12,8 @@
  	
  	// echo "Datos: ".$usuario." - ".$password;
 	$objUsu = new Usuario();
-	$objUsu->usuario = $usuario;
-	$objUsu->password = $password;
+	$objUsu->nombre_usuario = $usuario;
+	$objUsu->contrasena = $password;
 	echo json_encode($objUsu->login());
 
 ?>
