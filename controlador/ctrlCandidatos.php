@@ -17,7 +17,7 @@
 
             case 'Eliminar':                     
                 $cand = new Candidato(); 
-                $cand->CODEST = $_POST['codEst'];
+                $cand->id = $_POST['id'];
                 $cand->eliminar();
                 break;
 
@@ -25,12 +25,8 @@
                 if(isset($_POST['conjuntoCandidatos'])){
                     $cand = new Candidato();
                     $cand->Guardar($_POST['conjuntoCandidatos']);
-                    $cand->Cargar();
-                }else{
-                    $cand=new Candidato();
-                    $cand->ninguno();
-                    $cand->Cargar();
-                } 
+                    $cand->listar();
+                }
             break;            
         }
     }else{

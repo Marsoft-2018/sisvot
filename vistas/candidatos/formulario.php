@@ -20,19 +20,19 @@
         <tbody>
             <?php 
                 foreach ($obj->elegibles() as $candidato) { 
-                    if ( $candidato['CODEST'] != "voto_b2019") {
+                    if ( $candidato['id'] != "voto_b2021") {
                         
                    
                 ?>
                               
             <tr style='font-size:10px;'> 													
-                <td><?php echo $candidato['CODEST'] ?></td>
-                <td><?php echo $candidato['GRADO']."-".$candidato['GRUPO'] ?></td>
-                <td><?php echo $candidato['APELLIDO1']." ".$candidato['APELLIDO1']." ".$candidato['NOMBRE1']." ".$candidato['NOMBRE2'] ?></td>	
+                <td><?php echo $candidato['id'] ?></td>
+                <td><?php echo $candidato['grade']."-".$candidato['group'] ?></td>
+                <td><?php echo $candidato['firstLastName']." ".$candidato['secondLastName']." ".$candidato['firstName']." ".$candidato['secondName'] ?></td>	
                 <td>
                     <?php
                     //Verificar primero si es candidato
-                    if($candidato['Id'] > 0){
+                    if($candidato['candidatoId'] > 0){
                     ?>
                         <div class='alert alert-success' style='margin:0 auto;'>                                        
                             Ya es Candidato 
@@ -41,9 +41,9 @@
                     }else{ 
                     ?>
                         <div class='checkbox checkbox-success'>
-                            <input type='checkbox' name='conjuntoCandidatos[]' value="<?php echo $candidato['CODEST'] ?>" id="<?php echo $candidato['CODEST'] ?>" title="Candidato <?php echo $candidato['CODEST'] ?>" style='margin:0 auto; padding: 0px;'>
+                            <input type='checkbox' name='conjuntoCandidatos[]' value="<?php echo $candidato['id'] ?>" id="<?php echo $candidato['id'] ?>" title="Candidato <?php echo $candidato['id'] ?>" style='margin:0 auto; padding: 0px;'>
 
-                            <label for="<?php echo $candidato['CODEST'] ?>"> </label>
+                            <label for="<?php echo $candidato['id'] ?>"> </label>
                         </div>   
                     <?php } ?>
                     

@@ -9,18 +9,38 @@ body{
 }
 
 .logo-sistema{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 5px;
     background-color: #E8E8E8;
+    width: 100%;
 }
 
-.logo-sistema img{
+.logo-sistema .logo{
     width: 10%;
 }
+
+.logo-sistema .escudo{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 100px;
+    height: 80px;
+    padding: 10px;
+    margin-right: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.logo-sistema .escudo img{
+    width: 70%;
+}
+
 
 
 .seccion-votante{
     width: 100%; 
-    background-color: #4455F9; 
+    background: #00a552; 
     color: #fff; 
     padding: 10px;
 }
@@ -74,12 +94,22 @@ body{
 
 .tarjeton .datos .numero{
     align-self: center;
-    font-size: 3em;
+    font-size: 5em;
 }
 
 .tarjeton:hover{
     cursor: pointer;
     transform: scale(1.1);
     box-shadow: 0px 0px 15px rgba(153,153,153,1);
+    border: none;
+    border: 3px solid transparent;
+    border-image: -webkit-radial-gradient(red,transparent) 1 10;
+    animation: animar 0.6s ease-in alternate infinite;
+}    
 
-} 
+
+@keyframes animar{
+    0%{border-image: -webkit-radial-gradient(yellow,red,transparent) 1 10;box-shadow: 0px 0px 5px rgba(153,153,153,0.2)}
+    50%{border-image: -webkit-linear-gradient(left,orange,brown) 1 10;box-shadow: 0px 0px 25px rgba(200,200,200,0.5)}
+    100%{border-image: -webkit-radial-gradient(lightgreen, lightblue,transparent) 20 100;box-shadow: 0px 0px 50px rgba(253,253,253,1)}
+}

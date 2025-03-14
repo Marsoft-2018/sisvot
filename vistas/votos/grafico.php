@@ -8,7 +8,7 @@
         ?>
         <table class='grafico'>
             <tr>
-                <td class='barra2' width='200'><b><?php echo $value['NOMBRE1']." ".$value['NOMBRE2']." ".$value['APELLIDO1']." ".$value['APELLIDO2'] ?></b></td>
+                <td class='barra2' width='200'><b><?php echo $value['NOMBRE1']." ".$value['secondName']." ".$value['APELLIDO1']." ".$value['APELLIDO2'] ?></b></td>
                 <td class='barra3'  width='40'><?php echo (round($porcentaje,2)) ?>%&nbsp;</td>
                 <td width="<?php echo ((round($porcentaje,0))*3) ?>" class='barra1'>&nbsp;</td>
                 <td class='barraD'><i><?php echo $value['Votos'] ?></i></td>

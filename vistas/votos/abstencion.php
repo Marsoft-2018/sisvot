@@ -14,10 +14,10 @@
     $totalg = 0;
 
     foreach ($objConteo->abstencion() as $value) {
-        if ($value['SEXO'] != ""){
+        if ($value['gender'] != ""){
         ?>
         <tr> 
-           <td class='centrar'><h4><?php echo $value['SEXO'] ?></h4></td>
+           <td class='centrar'><h4><?php echo $value['gender'] ?></h4></td>
            <td class=''><h4><?php echo $value['Votos'] ?></h4></td>
     			             	            
            </td>	           

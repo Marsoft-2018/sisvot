@@ -1,4 +1,4 @@
-function VotoHecho(num,codest){
+function Voto1Hecho(num,codest){
     var bloquea = document.getElementById("bloquear");
 	bloquea.style.display='block';
         
@@ -18,15 +18,21 @@ function VotoHecho(num,codest){
             if (isConfirm) {
                 swal({title:"¡Hecho!",
                 text:'Su voto ha sido registrado gracias por usar SISVOT',
-                timer: 3500,     
+                timer: 1000,     
                 type:'success'},function(){
-                    $(location).attr('href','index.php');
+                    $.ajax({
+                        type:"POST",
+                        url:"vistas/votos/tarjetonContralor.php",
+                        success: function(data){
+                            $("#principal").html(data);
+                        }
+                    });
                 }); 
                 
                 $.ajax({
                     type:"POST",
                     url:"controlador/ctrlVotos.php",
-                    data:{accion:"RegistrarVoto",idcandidato:num,idest:codest},
+                    data:{accion:"RegistrarVoto",idcandidato:num,idest:codest,tipo:"Personero"},
                     success: function(data){
                         alertify.success(data);
                     }
@@ -66,9 +72,51 @@ function validar(){
 	}    
 }
 */
+function VotoHecho(num,codest){
+    var bloquea = document.getElementById("bloquear");
+	bloquea.style.display='block';
+        
+    swal({ 
+        title: "CONFIRMACION",
+        text: "¿Está seguro de votar por este candidato?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#216F21",
+        cancelButtonColor: "#DD6B55",
+        confirmButtonText: "¡Claro!",
+        cancelButtonText: "No", 
+        closeOnConfirm: false,
+        closeOnCancel: false },
+
+        function(isConfirm){ 
+            if (isConfirm) {
+                swal({title:"¡Hecho!",
+                text:'Su voto ha sido registrado gracias por usar SISVOT',
+                timer: 3500,     
+                type:'success'},function(){
+                    $(location).attr('href','index.php');
+                }); 
+                
+                $.ajax({
+                    type:"POST",
+                    url:"controlador/ctrlVotos.php",
+                    data:{accion:"RegistrarVoto",idcandidato:num,idest:codest,tipo:"Contralor"},
+                    success: function(data){
+                        alertify.success(data);
+                    }
+                });
+            } else { 
+                swal({title:"¡Voto Cancelado!",
+                text:"Puede volver a elegir si lo desea...",
+                timer: 2000},function(){
+                    $("#bloquear").slideUp('fast');
+                });   
+            } 
+        });
+}
 function logear() {
     $.ajax({
-        type:"POST",
+        type:"post",
         data:$('#frmLogin').serialize(),
         url:"controlador/ctrlValidacion.php",
         success:function(data){
@@ -77,10 +125,10 @@ function logear() {
             console.log('Mensaje: '+data["estado"]);
             // respuesta = respuesta.trim();
             // console.log(respuesta);
-            if(data["estado"] == 1) {
+            if(data["status"] == 1) {
                 window.location = "inicio.php";                      
             }else{
-                 window.location = "No_auto.php"; 
+                 window.location = "no_auto.php"; 
                 /*$("#respuesta").html("El Nombre de usuario o la contraseña no es correcto").addClass("animated zoomIn").show('fast',function(){
                     setTimeout(function(){ $("#respuesta").hide() }, 3000);
                 });*/
@@ -205,7 +253,7 @@ function alerta(){
         html:   '<div style="text-align:left;font-size:1.5em;line-height: 3em;padding:10px;">'+
                 'Autor:<br>Ing. Jose Alfredo Tapia Arroyo.<br>' +
                 '</div>',
-      imageUrl: 'IMG/Sisvot_P.png',
+      imageUrl: 'image/Sisvot_P.png',
       imageWidth: 400,
       imageHeight: 200,
       animation: true

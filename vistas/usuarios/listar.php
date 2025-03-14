@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>id</th>
-            <th>Nombre Usuario</th>
             <th>Nombre completo</th>
             <th>Rol</th>
             <th>Estado</th>
@@ -15,10 +14,9 @@
             foreach ($objUsuario->listar() as $usuario) { ?>
             <tr>
                 <td><?php echo $usuario['id'] ?></td>
-                <td><?php echo $usuario['nombre_usuario'] ?></td>
-                <td><?php echo $usuario['nombre'] ?></td>
-                <td><?php echo $usuario['rol'] ?></td>
-                <td><?php echo $usuario['estado'] ?></td>
+                <td><?php echo $usuario['name'] ?></td>
+                <td><?php echo $usuario['role'] ?></td>
+                <td><?php echo $usuario['status'] ?></td>
                 <td><?php echo $usuario['fecha_reg'] ?></td>
                 <td>
                     <button class="btn btn-warning" onclick="editar_usuario('<?php echo $usuario['id'] ?>')"><i class="fa fa-pencil"></i></button>

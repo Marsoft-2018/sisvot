@@ -1,65 +1,22 @@
 <div class="container marco-reporte">
     <div class="resumen-votos">
-        <h3>RESULTADOS DE LA VOTACIÓN</h3> 
+        <h1>RESULTADOS DE LA VOTACIÓN</h1> 
     </div>
-    <div class="contenedor-votos">
-        <?php 
-            $totalg = 0;
-            foreach ($objCandidato->listar() as $candidato) { ?>
-                <div class="tarjeta-candidato"  style="background-color: <?php echo $candidato['color']; ?>;">
-                    <div class="can-partido">
-                        <?php 
-    			            $color_fuente = "#000";
-                            
-                            if($candidato['Id'] != 0){ 
-                                $color_fuente = "#fff";
-                            ?>
-                                Partido:<br>
-                                <strong><?php echo    $candidato['partido'] ?></strong>
-                        <?php   } ?>
-                    </div>
-                    <div class="can-foto">
-                        <img src='IMG/<?php echo $candidato['FOTO'] ?>' />
-                            <?php 
-                                if($candidato['Id'] == 0){
-    
-                                }elseif ($candidato['Id']<=9){ ?>
-                                    <div class="can-numero">
-                                        <?php echo "# 0".$candidato['Id']; ?>
-                                    </div>
-                                <?php }else{ ?>
-                                    <div class="can-numero">
-                                    <?php echo    "# ".$candidato['Id']; ?>
-                                    </div>
-                            <?php
-                                }
-                    		?>
-                    </div>
-                    <div class="can-votos">
-                        <span class="label-votos">Total Votos:</span>
-                        <?php 
-                            $objVotos = new Voto();
-                            $objVotos->id = $candidato['Id'];
-                            $contVotos = 0;
-                            foreach($objVotos->contar() as $votos){
-                                $contVotos = $votos['Votos']; 
-                            }
-                            echo $contVotos; 
-                        ?>
-                    </div>
-                    <div class="can-porcentaje">
-                        <?php
-                            $objTotalVotos = new Voto();
-                            $porcentaje = round((100 * $contVotos) / $objTotalVotos->totalVotos(),2);
-                        ?>
-                        <div class="progreso" style="width: <?php echo $porcentaje; ?>%"></div><span><?php echo $porcentaje; ?>%</span>
-                    </div>
-                    <div class="can-nombre"  style="color: <?php echo $color_fuente; ?>;"><?php echo $candidato['NOMBRE1']." ".$candidato['NOMBRE2'] ?></div>
-                    <div class="can-apellidos"  style="color: <?php echo $color_fuente; ?>;"><?php echo $candidato['APELLIDO1']." ".$candidato['APELLIDO2'] ?></div>
-                </div>
-        <?php
-            } 
-        ?>
+    <div class="resultados">
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                    include("conteos/personeros.php");
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                    include("conteos/contralores.php");
+                ?>
+            </div>
+        </div>
     </div>
     <div class="container resumen-votos">
         <div class="resultados">

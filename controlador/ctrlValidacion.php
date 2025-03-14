@@ -2,18 +2,18 @@
 	session_start();
 
 	require_once ("../modelo/Conect.php");
-	require_once ('../modelo/usuario.php');
+	require_once ('../modelo/User.php');
 
-	$usuario = $_POST['usuario'];
-	$password = $_POST['contrasena'];
+	$usuario = $_REQUEST['userId'];
+	$password = $_REQUEST['password'];
 
 	// $usuario = $_GET['usuario'];
 	// $password = $_GET['contrasena'];
  	
  	// echo "Datos: ".$usuario." - ".$password;
-	$objUsu = new Usuario();
-	$objUsu->nombre_usuario = $usuario;
-	$objUsu->contrasena = $password;
+	$objUsu = new User();
+	$objUsu->id = $usuario;
+	$objUsu->password = $password;
 	echo json_encode($objUsu->login());
 
 ?>

@@ -8,29 +8,29 @@
         <link rel="stylesheet" href="css/admin.css">
         <link rel="stylesheet" href="css/resultados_votacion.css">
         <!--<link rel="stylesheet" href="css/bootstrap.min.css" />-->
-        <link rel="stylesheet" href="css/sweetalert2.css">
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="complementos/css/sweetalert2.css">
+        <link href="complementos/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="complementos/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </head>
     <body>
 
     <?php
-        $Usuario_reg = $_SESSION['idUsuario'];
+        $Usuario_reg = $_SESSION['id'];
         
     ?>	
     <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"  style="background-color: #00005B;">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <img src='IMG/Sisvot_P2.png'>
+        <img src='image/Sisvot_P2.png'>
       </a>
 
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Inicio</a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">
-                <li><a class="dropdown-item" href="#" onclick='mostrar_usuarios()'>Usuarios</a></li>
+                <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Usuarios'>Usuarios</a></li>
                 <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Candidatos'>Candidatos</a></li>
                 <li><a class="dropdown-item" href="#" onclick='administrar(this.id)' id='Alumnos'>Alumnos</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -42,6 +42,8 @@
                 <li><a class="dropdown-item" href="#"  onclick='controlVotacion(1)'>Iniciar Votación</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick='controlVotacion(2)'>Cerrar Votación</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"  onclick='controlVotacion(0)'>Nueva Votación</a></li>
             </ul>
         </li>
         <li class="nav-item"><a href="#" class="nav-link">Reportes</a>
@@ -53,7 +55,7 @@
         </li>
         <li class="nav-item"><a href="#" class="nav-link" onclick="alerta()">Acerca de</a></li>
       </ul>
-      <div class='usuario'>Usuario: <?php echo $_SESSION['nombre'] ?>&nbsp;&nbsp;&nbsp;<a href='index.php'>(Salir)</a></div>
+      <div class='usuario'>Usuario: <?php echo $_SESSION['fullName'] ?>&nbsp;&nbsp;&nbsp;<a href='index.php'>(Salir)</a></div>
     </header>
   </div>
 
@@ -65,10 +67,9 @@
     </div>
     <span id='resultadoUsuario'></span>
     <script src="js/sweetalert2.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script type='text/javascript' src='js/rfuncioness.js'></script>
-    <script src="js/usuarios.js"></script>
-    <script type="text/javascript">
+    <script src="js/jquery-3.6.js"></script>
+    <script src='js/main.js'></script>
+    <script>
         
         function alerta(){
             swal({
@@ -76,7 +77,7 @@
                 html:   '<div style="text-align:left;font-size:1.5em;line-height: 3em;padding:10px;">'+
                         'Autor:<br>Ing. Jose Alfredo Tapia Arroyo.<br>' +
                         '</div>',
-              imageUrl: 'IMG/Sisvot_P.png',
+              imageUrl: 'image/Sisvot_P.png',
               imageWidth: 400,
               imageHeight: 200,
               animation: true
@@ -91,7 +92,7 @@
                         '<label>Nombre:<input type="text" placeholder="Nombre" value="" class="form form-control"/></label></br>' +
                         '<label>Contraseña:<input type="text" placeholder="Contraseña" id="Contrasena" value="" onchange="prueba(this.id)" class="form form-control"/></label></br>' +
                         '</div>',
-              imageUrl: 'IMG/Sisvot_P.png',
+              imageUrl: 'image/Sisvot_P.png',
               imageWidth: 400,
               imageHeight: 200,
               animation: true
@@ -114,7 +115,7 @@
                                 '<option value="JURADO">Jurado</option>'+
                             '</select></label></br>' +
                         '</div>',
-              imageUrl: 'IMG/Sisvot_P.png',
+              imageUrl: 'image/Sisvot_P.png',
               imageWidth: 400,
               imageHeight: 200,
               animation: true,
@@ -127,7 +128,7 @@
               closeOnConfirm: false,
               closeOnCancel: false
             }).then(function () {
-                   agregarUsuario();
+                   agregarUser();
             }, function (dismiss) {
               
             });
@@ -152,7 +153,7 @@
             swal({
               title: "Datos del Estudiante",
               html: '<div id="datosModal"></div>',
-              imageUrl: 'IMG/Sisvot_P.png',
+              imageUrl: 'image/Sisvot_P.png',
               imageWidth: 400,
               imageHeight: 200,
               animation: true,
@@ -172,7 +173,7 @@
             });               
         }
 
-        function agregarUsuario(){
+        function agregarUser(){
             document.getElementById("principal").innerHTML="";
             document.getElementById("resultadoUsuario").innerHTML="";
             var nombreC = document.getElementById("nombreC").value;
@@ -191,16 +192,16 @@
         function agregarAlumno(){
             document.getElementById("principal").innerHTML="";
             document.getElementById("resultadoUsuario").innerHTML="";
-            var codEst = document.getElementById("codEst").value;
+            var id = document.getElementById("id").value;
             var nombre1 = document.getElementById("nombre1").value;
-            var nombre2 = document.getElementById("nombre2").value;
+            var secondName = document.getElementById("secondName").value;
             var apellido1 = document.getElementById("apellido1").value;
             var apellido2 = document.getElementById("apellido2").value;
             var grado = document.getElementById("grado").value;
             var grupo = document.getElementById("grupo").value;
             var sexo = document.getElementById("sexo").value;
             
-            $("#principal").load("controlador/ctrlAlumnos.php",{accion:"Agregar",codEst:codEst,nombre1:nombre1,nombre2:nombre2,apellido1:apellido1,apellido2:apellido2,grado:grado,grupo:grupo,sexo:sexo,estado:"No ha votado",institucion:"1"},function(){
+            $("#principal").load("controlador/ctrlAlumnos.php",{accion:"Agregar",id:id,nombre1:nombre1,secondName:secondName,apellido1:apellido1,apellido2:apellido2,grado:grado,grupo:grupo,sexo:sexo,estado:"No ha votado",institucion:"1"},function(){
                 swal({title:"¡Hecho!",
                     text:'El estudiante fue guardado con éxito',
                     timer: 2000,     
@@ -253,7 +254,7 @@
                 $.ajax({
                     type:"POST",
                     url:"controlador/ctrlAlumnos.php",
-                    data:{accion:accion, codEst:cod},
+                    data:{accion:accion, id:cod},
                     success: function(data){
                         swal({title:"¡Hecho!",
                             text:''+data,
@@ -268,7 +269,17 @@
         }
         
         function cargarNuevoCandidato(){
-            $("#principal").load("controlador/ctrlCandidatos.php",{accion:"cargarNuevo"}); 
+            $.ajax({
+                    type:"POST",
+                    url:"controlador/ctrlCandidatos.php",
+                    data:{accion:"cargarNuevo"},
+                    success: function(data){
+                        swal({title:"¡Hecho!",
+                            timer: 2000,     
+                            type:'success'});
+                        $("#principal").html(data);
+                    }
+                });
         }
         
         function guardarSeleccionCandidatos(){
@@ -306,7 +317,7 @@
             closeOnConfirm: false,
             closeOnCancel: false }).then(function () {  
                 
-                $("#principal").load("controlador/ctrlCandidatos.php",{accion:accion,codEst:cod},function(){
+                $("#principal").load("controlador/ctrlCandidatos.php",{accion:accion,id:cod},function(){
                     
                 }); 
             }, function (dismiss) {
@@ -317,6 +328,6 @@
         function salir(){
              $(location).attr('href','index.php');
         }
-    </script>
+    </script><!---->
 </body>
 </html>

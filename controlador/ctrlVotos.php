@@ -1,6 +1,6 @@
 <?php
     require("../modelo/Conect.php");
-    require("../modelo/alumnos.php");
+    require("../modelo/Student.php");
     require("../modelo/candidato.php");
     require("../modelo/voto.php");
 
@@ -14,6 +14,7 @@
     		$objVoto = new Voto();
     		$objVoto->candidato = $_POST['idcandidato'];
     		$objVoto->codEstudiante = $_POST['idest'];
+    		$objVoto->tipo = $_POST['tipo'];
     		$objVoto->agregar();
     		break;
     	case 'contar':
@@ -28,17 +29,25 @@
             break;
         case 'Participacion':
             
-            $objConteo = new Alumno();
+            $objConteo = new Student();
             include("../vistas/votos/participacion.php");
             break;
         case "controlVotacion":
             $estado = "No ha votado";
             if($_POST['estado'] == 2){
                 $estado = "Inactivo";
+                $objVoto = new Voto();
+                $objVoto->estado = $estado;
+                $objVoto->toggleVotacion();
+            }elseif($_POST['estado'] == 0){
+                $objVoto = new Voto();
+                $objVoto->estado = $estado;
+                $objVoto->nuevaVotacion();
+            }else{
+                $objVoto = new Voto();
+                $objVoto->estado = $estado;
+                $objVoto->toggleVotacion();
             }
-    		$objVoto = new Voto();
-    		$objVoto->estado = $estado;
-    		$objVoto->toggleVotacion();
             
             break;
     } 

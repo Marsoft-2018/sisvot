@@ -1,6 +1,6 @@
 <?php
     require("../modelo/Conect.php");
-    require("../modelo/alumnos.php");
+    require("../modelo/Student.php");
     if(isset($_POST['accion'])){
         $accion=$_POST['accion']; 
         
@@ -9,21 +9,21 @@
             include("../vistas/estudiantes.php");
 
         }elseif($accion == 'Eliminar'){   
-            $alu = new Alumno();	
-            $alu->CODEST = $_POST['codEst'];            
+            $alu = new Student();	
+            $alu->id = $_POST['id'];            
             $alu->eliminar();
             
         }elseif($accion=='Agregar'){ 
                 
-            $alu = new Alumno();	
-            $alu->CODEST = $_POST['codEst'];
-            $alu->GRADO = $_POST['grado'];
-            $alu->GRUPO = $_POST['grupo'];
-            $alu->APELLIDO1 = $_POST['apellido1'];
-            $alu->APELLIDO2 = $_POST['apellido2'];
-            $alu->NOMBRE1 = $_POST['nombre1'];
-            $alu->NOMBRE2 = $_POST['nombre2'];
-            $alu->SEXO = $_POST['sexo'];
+            $alu = new Student();	
+            $alu->id = $_POST['id'];
+            $alu->grade = $_POST['grado'];
+            $alu->group = $_POST['grupo'];
+            $alu->firstLastName = $_POST['apellido1'];
+            $alu->secondLastName = $_POST['apellido2'];
+            $alu->firstName = $_POST['nombre1'];
+            $alu->secondName = $_POST['secondName'];
+            $alu->gender = $_POST['sexo'];
             $alu->agregar();
 
         }elseif( $accion == "ventanaNuevo" || $accion == "ventanaEditar"){

@@ -1,7 +1,7 @@
 <?php 
-    $codEst = "";
+    $id = "";
     $nombre1 = "";
-    $nombre2 = "";
+    $secondName = "";
     $apellido1 = "";
     $apellido2 = "";
     $grado = "";
@@ -12,18 +12,18 @@
     $funcion = "agregarEstudiante()";
 
     if(isset($_POST['codigo'])){
-        $objEst = new alumno();
+        $objEst = new Student();
         $objEst->id = $_POST['codigo'];
         $sql = $objEst->buscar();
         foreach($sql as $estudiante ){
-            $codEst = $estudiante["CODEST"];
+            $id = $estudiante["CODEST"];
             $nombre1 = $estudiante["NOMBRE1"];
-            $nombre2 = $estudiante["NOMBRE2"];
+            $secondName = $estudiante["secondName"];
             $apellido1 = $estudiante["APELLIDO1"];
             $apellido2 = $estudiante["APELLIDO2"];
             $grado = $estudiante["GRADO"];
             $grupo = $estudiante["GRUPO"];
-            $sexo = $estudiante["SEXO"];
+            $sexo = $estudiante["gender"];
             foreach($objEst->fotoCandidato() as $foto_cargada){
                 $foto = $foto_cargada['FOTO'];
                 $fotoAnterior = $foto_cargada['FOTO'];
@@ -45,7 +45,7 @@
             </div>                            
             <iframe name='resultadoEnvio' style='display:none;'></iframe>
             <div id='mostrarMensajeImagen'></div>
-            <input type='hidden' value='<?php echo $codEst; ?>' name='idUsuario'>
+            <input type='hidden' value='<?php echo $id; ?>' name='idUsuario'>
             <input type='submit' value='Guardar Imágen' id='guardarIMG' class='btn btn-primary' style='margin-top:20px;display:none;width:98%;'>
         </form>
         </div>
@@ -74,9 +74,9 @@
 
 
     <label>Código del Estudiante:</label>
-    <input type="text" placeholder="Código del estudiante" id="codEst" value="<?php echo $codEst; ?>" class="form form-control ancho" title="Recuerde que este código será el que utilizará el estudiante para ingresar al sistema para votar"/></br>
+    <input type="text" placeholder="Código del estudiante" id="id" value="<?php echo $id; ?>" class="form form-control ancho" title="Recuerde que este código será el que utilizará el estudiante para ingresar al sistema para votar"/></br>
     <label>1er. Nombre:</label><input type="text" placeholder="Primer Nombre" id="nombre1" value="<?php echo $nombre1; ?>" class="form form-control ancho" /></br>
-    <label>2do. Nombre:</label><input type="text" placeholder="Segundo Nombre" id="nombre2" value="<?php echo $nombre2; ?>" class="form form-control ancho" /></br>
+    <label>2do. Nombre:</label><input type="text" placeholder="Segundo Nombre" id="secondName" value="<?php echo $secondName; ?>" class="form form-control ancho" /></br>
     <label>1er. Apellido:</label><input type="text" placeholder="Primer Apellido" id="apellido1" value="<?php echo $apellido1; ?>" class="form form-control ancho" /></br>
     <label>2do. Apellido:</label><input type="text" placeholder="Segundo Apellido" id="apellido2" value="<?php echo $apellido2; ?>" class="form form-control ancho" /></br> 
     <div style="width:25%;float:left;margin:8px;">

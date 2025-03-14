@@ -24,32 +24,32 @@
         	<?php 
         		foreach ($obj->listar() as $value) { ?>
         		<tr>
-        			<td><?php echo $value['CODEST'] ?></td>
+        			<td><?php echo $value['id'] ?></td>
         			<td>
         			    <?php 
-        			        if($value['GRADO'] == -1){
+        			        if($value['grade'] == -1){
         			            echo "Jardin A";
-        		            }elseif($value['GRADO'] == 0){
+        		            }elseif($value['grade'] == 0){
         		                echo "Grado B";
-        		            }elseif($value['GRADO'] == -2){
+        		            }elseif($value['grade'] == -2){
         		                echo "Párvulos";
         		            }else{
-        		                echo $value['GRADO']."°";
+        		                echo $value['grade']."°";
         		            }
         			    ?>
         			</td>
-        			<td><?php echo $value['NOMBRE1']." ".$value['NOMBRE2']." ".$value['APELLIDO1']." ".$value['APELLIDO2'] ?></td>
-        			<?php if ($value['EST'] == "Ya Voto"){ ?>
+        			<td><?php echo $value['firstName']." ".$value['secondName']." ".$value['firstLastName']." ".$value['secondLastName'] ?></td>
+        			<?php if ($value['status'] == "Ya Voto"){ ?>
         				<td>
-                            <span class="badge rounded-pill bg-success" style="width: 100%;"><?php echo $value['EST'] ?></span>
+                            <span class="badge rounded-pill bg-success" style="width: 100%;"><?php echo $value['status'] ?></span>
                         </td>
-                    <?php }elseif ($value['EST'] == "No ha votado"){ ?>
+                    <?php }elseif ($value['status'] == "No ha votado"){ ?>
                     	<td>
-                    		<span class="badge rounded-pill bg-warning text-dark" style="width: 100%;"><?php echo $value['EST'] ?></span>
+                    		<span class="badge rounded-pill bg-warning text-dark" style="width: 100%;"><?php echo $value['status'] ?></span>
                     	</td>
         			<?php }else{ ?>
                     	<td>
-                    		<span class="badge rounded-pill bg-secondary" style="width: 100%;"><?php echo $value['EST'] ?></span>
+                    		<span class="badge rounded-pill bg-secondary" style="width: 100%;"><?php echo $value['status'] ?></span>
                     	</td>
         			<?php } ?>
         						

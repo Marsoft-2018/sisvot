@@ -1,32 +1,31 @@
 <?php
-    class Candidato extends ConectarPDO{
+    class Candidato extends Conexion{
         public $id;
-        public $CODEST;
-        public $GRADO;
-        public $GRUPO;
-        public $APELLIDO1;
-        public $APELLIDO2;
-        public $NOMBRE1;
-        public $NOMBRE2;
-        public $EST;
-        public $codInst;
-        public $SEXO;
-        public $ROL;
-        public $contrasena;
+        public $grade;
+        public $group;
+        public $firstLastName;
+        public $secondLastName;
+        public $firstName;
+        public $secondName;
+        public $status;
+        public $institucionId;
+        public $gender;
+        public $role;
+        public $password;
 
         public $sql;
         function agregar(){
-            $this->sql = "INSERT INTO estudiantes (CODEST, GRADO, GRUPO, APELLIDO1, APELLIDO2, NOMBRE1, NOMBRE2, SEXO) VALUES (?,?,?,?,?,?,?,?)";
+            $this->sql = "INSERT INTO students (id,`grade`,`group`,`firstLastName`,`secondLastName`,`firstName`,`secondName`,`gender`) VALUES (?,?,?,?,?,?,?,?)";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
-                $stm->bindparam(1,$this->CODEST);
-                $stm->bindparam(2,$this->GRADO);
-                $stm->bindparam(3,$this->GRUPO);
-                $stm->bindparam(4,$this->APELLIDO1);
-                $stm->bindparam(5,$this->APELLIDO2);
-                $stm->bindparam(6,$this->NOMBRE1);
-                $stm->bindparam(7,$this->NOMBRE2);
-                $stm->bindparam(8,$this->SEXO);
+                $stm->bindparam(1,$this->id);
+                $stm->bindparam(2,$this->grade);
+                $stm->bindparam(3,$this->group);
+                $stm->bindparam(4,$this->firstLastName);
+                $stm->bindparam(5,$this->secondLastName);
+                $stm->bindparam(6,$this->firstName);
+                $stm->bindparam(7,$this->secondName);
+                $stm->bindparam(8,$this->gender);
                 if ($stm->execute()) {
                    echo "Registro agregado con éxito";
                 }
@@ -41,7 +40,7 @@
             //var_dump($datos); 
             foreach($datos as $valores){ 
              
-                $this->sql = "INSERT INTO `personeros`.`candidatos` (`FOTO`, `alumnos_CODEST`) VALUES (?, '$valores');";
+                $this->sql = "INSERT INTO `personeros`.`candidatos` (`photo`, `id`) VALUES (?, '$valores');";
                 try {
                     $stm = $this->Conexion->prepare($this->sql);
                     $stm->bindparam(1,$cara);
@@ -58,8 +57,19 @@
             }
         }//ok
 
-        function listar(){
-            $this->sql = "SELECT ca.Id,al.NOMBRE1,al.NOMBRE2,al.APELLIDO1,al.APELLIDO2,ca.FOTO,ca.alumnos_CODEST,ca.color,ca.partido FROM estudiantes al INNER JOIN candidatos ca ON al.CODEST = ca.alumnos_CODEST";
+        function listarPersoneros(){
+            $this->sql = "SELECT ca.Id,ca.numero,al.firstName,al.secondName,al.firstLastName,al.secondLastName,ca.photo,ca.id,ca.color,ca.partido FROM students al INNER JOIN candidatos ca ON al.id = ca.studentId where ca.type = 'Personero'";
+            try {
+                $stm = $this->Conexion->prepare($this->sql);
+                $stm->execute();
+                $datos = $stm->fetchall(PDO::FETCH_ASSOC);
+                return $datos;
+            } catch (Exception $e) {
+                echo "Error: ".$e;
+            }
+        }
+        function listarContralores(){
+            $this->sql = "SELECT ca.Id,ca.numero,al.firstName,al.secondName,al.firstLastName,al.secondLastName,ca.photo,ca.id,ca.color,ca.partido FROM students al INNER JOIN candidatos ca ON al.id = ca.studentId where ca.type = 'Contralor'";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
                 $stm->execute();
@@ -71,10 +81,10 @@
         }
 
         function buscar(){
-            $this->sql ="SELECT * FROM estudiantes WHERE CODEST = ? ORDER BY grado, grupo, APELLIDO1, APELLIDO2, NOMBRE1, NOMBRE2 DESC";
+            $this->sql ="SELECT * FROM students WHERE id = ? ORDER BY grade, group, firstLastName, secondLastName, firstName, secondName DESC";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
-                $stm->bindparam(1,$this->CODEST);
+                $stm->bindparam(1,$this->id);
                 $stm->execute();
                 $datos = $stm->fetchall(PDO::FETCH_ASSOC);
                 return $datos;
@@ -84,10 +94,10 @@
         }
 
         function eliminar(){
-            $this->sql = "DELETE FROM candidatos WHERE alumnos_CODEST= ?";
+            $this->sql = "DELETE FROM candidatos WHERE id= ?";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
-                $stm->bindparam(1,$this->CODEST);
+                $stm->bindparam(1,$this->id);
                 if ($stm->execute()) {
                    echo "Registro eliminado con éxito";
                 }
@@ -98,7 +108,7 @@
 
         public function contar(){
             $total = 0;
-            $this->sql = "SELECT COUNT(ca.alumnos_CODEST) AS total FROM candidatos ca";
+            $this->sql = "SELECT COUNT(ca.id) AS total FROM candidatos ca";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
                 $stm->execute();
@@ -113,7 +123,7 @@
         }
         
         function elegibles(){
-            $this->sql = "SELECT e.*,c.`Id` FROM estudiantes e LEFT JOIN candidatos c ON c.`alumnos_CODEST` = e.`CODEST` WHERE grado='11' ORDER BY grado, grupo, APELLIDO1,APELLIDO2,NOMBRE1,NOMBRE2 DESC";
+            $this->sql = "SELECT e.*,c.`id` AS candidatoId FROM students e LEFT JOIN candidatos c ON c.`studentId` = e.`id` WHERE grade='11' ORDER BY grade, `group`, firstLastName,secondLastName,firstName,secondName DESC";
             try {
                 $stm = $this->Conexion->prepare($this->sql);
                 $stm->execute();

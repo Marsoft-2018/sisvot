@@ -176,7 +176,7 @@
 						        <h5 class="card-title" style="color: <?php echo $color_fuente; ?>;" >
 						             
 						        	<?php 
-	                                    echo $candidato['NOMBRE1']." ".$candidato['NOMBRE2']." ".$candidato['APELLIDO1']." ".$candidato['APELLIDO2'];
+	                                    echo $candidato['NOMBRE1']." ".$candidato['secondName']." ".$candidato['APELLIDO1']." ".$candidato['APELLIDO2'];
 	                                ?> 
                                 </h5>
                                 <hr> 
@@ -253,7 +253,7 @@
                                         echo            "</h1></div></div>";
                                         echo        "</div>";
                                         echo        "<div class='marcoNombre' >";
-                                        echo            "<div class=''>".$candidato['NOMBRE1']." ".$candidato['NOMBRE2']." ".$candidato['APELLIDO1']." ".$candidato['APELLIDO2']."</div>";
+                                        echo            "<div class=''>".$candidato['NOMBRE1']." ".$candidato['secondName']." ".$candidato['APELLIDO1']." ".$candidato['APELLIDO2']."</div>";
                                         echo        "</div>";
                                         echo        "<div class='bandaColores'>";
                                         echo            "<div class='colores color1'></div>";
@@ -283,7 +283,7 @@
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/sweetalert.min.js"></script>
     <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
-    <script type='text/javascript' src='js/rfuncioness.js'></script>
+    <script type='text/javascript' src='js/main.js'></script>
     <script type="text/javascript" src="js/alertify.js"></script>     
 </body>
 </html>

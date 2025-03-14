@@ -387,29 +387,27 @@ a:hover{
 /**/
 
     .cajaerror{
-        width: 80%;
-        height: 420px;
+        display: flex;
+		justify-content: flex-start;
+		align-items: center;
         border: 0px solid #FF2;
         border-radius: 40px;
-        box-shadow: 3px 4px 4px rgba(102,102,102,0.6);
+        /*box-shadow: 3px 4px 4px rgba(102,102,102,0.6);*/
         margin: 0 auto;
         margin-top: 50px; 
-        padding: 40px;
-        vertical-align: middle;
-        background: url("../IMG/error-404.png");
+        padding: 80px;
+        background: url("../image/error-404.png");
         background-size: 100%;
         background-repeat: no-repeat;	
     }
 	.mensajeerror{
-		width:45%;
-		background-color:rgba(255,255,255,0.3);
-		border: 2px solid  #FFFFFF;
+		background-color:rgba(255,255,255,0.8);
 		color: #000;
 		border-radius: 20px;
 		margin-left: 15%;
 		margin-top: 3%;
-
 		padding:20px;
+	    border: 1px solid #cecece;
 	}
 
 	.cajaerror .advertencia{
@@ -422,6 +420,7 @@ a:hover{
 	.cajaerror .advertencia img{
 	    width: 100%;
 	    height: 100%;
+		
 	}
 
 

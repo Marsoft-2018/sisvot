@@ -5,7 +5,7 @@
         <title>TARJETÓN ELECTORAL</title>
         <link rel='stylesheet' href='css/tarjeton.css' type='text/css' />
 
-        <link rel="stylesheet" href="css/sweetalert.css">        
+        <link rel="stylesheet" href="complementos/css/sweetalert.css">        
         <link rel="stylesheet" href="css/alertify.core.css" />
         <link rel="stylesheet" href="css/alertify.default.css" />  
 
@@ -15,56 +15,68 @@
         
     </head>
     <body>
-        <header class="logo-sistema"><img src='IMG/Sisvot_P1.png'/></header>
+        <header class="logo-sistema">
+            <div class="logo">
+                <img src='image/Sisvot_P1.png'/>
+            </div>
+            <h3>INSTITUCION</h3>
+            <div class="escudo"><img src='image/escudos/escudo.png'/></div>
+        </header>
         <a href='index.php'><div class='bloqueo' id='bloquear'></div></a>
         <div class="seccion-votante">
             Estudiante votando: 
-            <b><?php echo $_SESSION['nombre'] ?></b>
+            <b><?php echo $_SESSION['fullName'] ?></b>
             <span style='float: right;'>
                 <a href='index.php' style='color: #fff; margin-right: 100px;'>Salir</a>
             </span>
         </div>
 
-        <div class="principal">
+        <div class="principal" id="principal">
         	<div class="container">
         	    <?php 
                     require("modelo/Conect.php");
                     require("modelo/candidato.php");
-                    $idest = $_SESSION['idUsuario'];
+                    $idest = $_SESSION['id'];
                     $objCandidato = new Candidato();
                     $total_filas = ceil($objCandidato->contar()/2);
-        		foreach ($objCandidato->listar() as $candidato) { ?>
-	        	<div class="tarjeton"  onclick="VotoHecho('<?php echo $candidato['Id'] ?>','<?php echo $idest ?>')">
-	        		<div class="foto">
-	        			<img src="IMG/<?php echo $candidato['FOTO'] ?>"/>        			
-	        		</div>
+        		foreach ($objCandidato->listarPersoneros() as $candidato) { ?>
+	        	<div class="tarjeton"  onclick="Voto1Hecho('<?php echo $candidato['id'] ?>','<?php echo $idest ?>')">
+                    <?php 
+                        if($candidato['id'] != 0 && $candidato['id'] != 99){ 
+                    ?>
+                            <div class="foto">
+                                <img src="image/<?php echo $candidato['photo'] ?>"/>        			
+                            </div>
+                    <?php
+                        }
+                    ?>
 	        		<div class="datos" style="background-color: <?php echo $candidato['color']; ?>;">
 			            <?php 
 			                $color_fuente = "#fff";
-                            if($candidato['Id'] == 0){
+                            if($candidato['id'] == 0 || $candidato['id'] == 99){ 
                                 $color_fuente = "#000";
                             }
                         ?>
 	        			<div class="nombre">
 	        				<h3 style="color: <?php echo $color_fuente; ?>;">	
 	        				    <?php 
-	                                echo $candidato['NOMBRE1']." ".$candidato['NOMBRE2']." ".$candidato['APELLIDO1']." ".$candidato['APELLIDO2'];
+	                                echo $candidato['firstName']." ".$candidato['secondName']." ".$candidato['firstLastName']." ".$candidato['secondLastName'];
 	                            ?> 
 	                        </h3>
 	        			</div>
 	        			<div class="numero">
-	        				<?php 
-                                if($candidato['Id']== 0){
-
-                                }elseif ($candidato['Id']<=9){
-                                    echo    "# 0".$candidato['Id'];
-                                }else{
-                                    echo    "# ".$candidato['Id'];
+                            <?php 
+                                if($candidato['id'] != 0 && $candidato['id'] != 99){ 
+                                     echo "# ".$candidato['numero']; 
                                 }
-                    		?>
+                            ?>
 	        			</div>
 	        			<div class="partido">
-	        				<h3>Partido: <strong><?php echo    $candidato['partido'] ?></strong></h3>
+                            <?php 
+                                if($candidato['partido'] != null){ 
+                            ?>
+	        				    <h3>Partido: <strong><?php echo    $candidato['partido'] ?></strong></h3>
+                            <?php } ?>
 	        			</div>
 	        		</div>
 	        	</div>
@@ -74,10 +86,10 @@
     <footer>
         <!--<p><font size="1">Copy Right&copy;: Ing. Jose Alfredo Tapia A.</font></p> -->
     </footer>
-    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/jquery-3.6.js"></script>
     <script src="js/sweetalert.min.js"></script>
     <script src="bootstrap-4.3.1-dist/js/bootstrap.js"></script>
-    <script type='text/javascript' src='js/rfuncioness.js'></script>
+    <script type='text/javascript' src='js/main.js'></script>
     <script type="text/javascript" src="js/alertify.js"></script>     
 </body>
 </html>
