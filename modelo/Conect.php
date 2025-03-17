@@ -1,11 +1,9 @@
 <?php
     abstract class Conexion{
         private $host = "localhost";
-        /*
-        //Datos para conectar en el hosting
-        private $bdt = "colegio7_personeros";
-        private $usuario= "colegio7_root";
-        private $password = "Sigest2021**";
+        private $bdt = "bdt_personeros";
+        private $usuario= "root";
+        private $password = "";
 
         */
         
