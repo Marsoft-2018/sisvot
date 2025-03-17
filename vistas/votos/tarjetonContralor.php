@@ -1,9 +1,13 @@
+<div class="tituloTarjeton">
+<h3>TARJETON PARA CONTRALORES</h3>
+</div>
+<hr>
 <div class="container">
     <?php 
   session_start();
         require("../../modelo/Conect.php");
         require("../../modelo/candidato.php");
-        $idest = $_SESSION['id'];
+        $idest = $_REQUEST['idest'];
         $objCandidato = new Candidato();
         $total_filas = ceil($objCandidato->contar()/2);
     foreach ($objCandidato->listarContralores() as $candidato) { ?>
@@ -15,6 +19,12 @@
                     <img src="image/<?php echo $candidato['photo'] ?>"/>        			
                 </div>
         <?php
+            }else{
+        ?>
+                <div class="foto">
+                    <img src="image/blanco.png"/>        			
+                </div>
+        <?php       
             }
         ?>
         <div class="datos" style="background-color: <?php echo $candidato['color']; ?>;">

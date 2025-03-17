@@ -32,6 +32,11 @@
             $objConteo = new Student();
             include("../vistas/votos/participacion.php");
             break;
+        case 'tarjetonPdf':
+            
+            $objCandidato = new Candidato();
+            include("../vistas/votos/reportes/tarjetonPdf.php");
+            break;
         case "controlVotacion":
             $estado = "No ha votado";
             if($_POST['estado'] == 2){

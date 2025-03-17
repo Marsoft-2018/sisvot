@@ -12,17 +12,17 @@ function Voto1Hecho(num,codest){
         confirmButtonText: "¡Claro!",
         cancelButtonText: "No", 
         closeOnConfirm: false,
-        closeOnCancel: false },
+        closeOnCancel: true },
 
         function(isConfirm){ 
             if (isConfirm) {
-                swal({title:"¡Hecho!",
-                text:'Su voto ha sido registrado gracias por usar SISVOT',
-                timer: 1000,     
+                swal({title:"¡Hecho! Ahora vas a elegir al contralor",
+                timer: 500,     
                 type:'success'},function(){
                     $.ajax({
                         type:"POST",
                         url:"vistas/votos/tarjetonContralor.php",
+                        data:{idest:codest},
                         success: function(data){
                             $("#principal").html(data);
                         }
@@ -245,6 +245,66 @@ function contarVotos(op){
             console.log('test: '+err);
         }
     });   
+}
+
+function tarjetonPdf(op){
+    console.log("Opcion: "+op);
+    $("#principal").html("");
+    var accion = "tarjetonPdf";
+    var option = 'load';
+    if (op == 2) {
+        option = 'download';
+    }
+    
+    // $.ajax({
+    //     type:"POST",
+    //     url:"controlador/ctrlVotos.php",
+    //     data:{accion:accion},
+    //     success:function(data){
+    //         $("#principal").html(data);   
+    //     },
+    //     error: function(err){
+    //         console.log('test: '+err);
+    //     }
+    // });   
+    fetch('vistas/votos/reportes/tarjetonPdf.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'accion': accion }) // Enviar la variable POST
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.file) {
+            // Mostrar el PDF en <object>
+            const pdfContainer = document.getElementById('principal');
+            pdfContainer.innerHTML = `<object data="${data.file}" type="application/pdf" width="100%" height="600px"></object>`;
+
+            // Mostrar botón de descarga
+            const downloadButton = document.getElementById('descargar-pdf');
+            downloadButton.style.display = "inline-block";
+            downloadButton.onclick = function () {
+                window.location.href = data.file; // Descargar el archivo
+            };
+        } else {
+            alert("Error: " + data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function generarPDF() {
+    fetch('generar_pdf.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.file) {
+                // Crear la etiqueta <object> y asignarle la ruta del PDF
+                const pdfContainer = document.getElementById('pdf-container');
+                pdfContainer.innerHTML = `<object data="${data.file}" type="application/pdf" width="100%" height="600px"></object>`;
+            } else {
+                alert("Error al generar el PDF.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 function alerta(){

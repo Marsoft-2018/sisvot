@@ -18,8 +18,7 @@
     <body>
 
     <?php
-        $Usuario_reg = $_SESSION['id'];
-        
+        $Usuario_reg = $_SESSION['id'];        
     ?>	
     <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"  style="background-color: #00005B;">
@@ -39,7 +38,7 @@
          </li>
         <li class="nav-item"><a href="#" class="nav-link">Administrar</a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-macos mx-0 border-0 shadow" style="width: 220px;">
-                <li><a class="dropdown-item" href="#"  onclick='controlVotacion(1)'>Iniciar Votación</a></li>
+                <li><a class="dropdown-item" href="#"  onclick='controlVotacion(1)'>Activar Votación</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick='controlVotacion(2)'>Cerrar Votación</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -51,6 +50,8 @@
                 <li><a class="dropdown-item" href="#" onclick='contarVotos(1)' id='conteo'>Conteo de Votos</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick='contarVotos(2)' id='Abstencionismo'>Abstencionismo</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick='tarjetonPdf(1)' id='tarjetonPdf'>Ver tarjetón PDF</a></li>
             </ul>
         </li>
         <li class="nav-item"><a href="#" class="nav-link" onclick="alerta()">Acerca de</a></li>
@@ -99,8 +100,7 @@
             })
         }
         
-        function ventanaNuevo(tabla){
-            
+        function ventanaNuevo(tabla){            
             swal({
               title: "Nuevo Registro de "+tabla,
               html: '<br>' +
@@ -129,10 +129,8 @@
               closeOnCancel: false
             }).then(function () {
                    agregarUser();
-            }, function (dismiss) {
-              
-            });
-                
+            }, function (dismiss) {             
+            });                
         }
         
         function ventanaNuevoAlumno(){            
@@ -315,10 +313,8 @@
             confirmButtonText: "SI",
             cancelButtonText: "NO", 
             closeOnConfirm: false,
-            closeOnCancel: false }).then(function () {  
-                
-                $("#principal").load("controlador/ctrlCandidatos.php",{accion:accion,id:cod},function(){
-                    
+            closeOnCancel: false }).then(function () {                  
+                $("#principal").load("controlador/ctrlCandidatos.php",{accion:accion,id:cod},function(){                    
                 }); 
             }, function (dismiss) {
                 $("#principal").load("controlador/ctrlCandidatos.php",{accion:"cargar"});  

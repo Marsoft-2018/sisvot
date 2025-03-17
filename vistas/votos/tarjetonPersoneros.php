@@ -19,7 +19,7 @@
             <div class="logo">
                 <img src='image/Sisvot_P1.png'/>
             </div>
-            <h3>INSTITUCION</h3>
+            <h3>INSTITUCION EDUCATIVA TECNICA AGROPECUARIA Y MINERA DE SAN MARTIN DE LOBA <br> INETAM</h3>
             <div class="escudo"><img src='image/escudos/escudo.png'/></div>
         </header>
         <a href='index.php'><div class='bloqueo' id='bloquear'></div></a>
@@ -32,6 +32,10 @@
         </div>
 
         <div class="principal" id="principal">
+            <div class="tituloTarjeton">
+                <h3>TARJETON PARA PERSONEROS</h3>
+            </div>
+            <hr>
         	<div class="container">
         	    <?php 
                     require("modelo/Conect.php");
@@ -48,6 +52,12 @@
                                 <img src="image/<?php echo $candidato['photo'] ?>"/>        			
                             </div>
                     <?php
+                        }else{
+                    ?>
+                            <div class="foto">
+                                <img src="image/blanco.png"/>        			
+                            </div>
+                    <?php       
                         }
                     ?>
 	        		<div class="datos" style="background-color: <?php echo $candidato['color']; ?>;">
